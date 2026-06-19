@@ -1,54 +1,54 @@
-# Hi there, I'm Muthukumaran Suresh 👋
+<h1 align="left">Hi there, I'm Muthukumaran Suresh <img src="https://media.giphy.com/media/hvRJCLFzcasr14yMyj/giphy.gif" width="28"></h1>
 
-### 🚀 AI/ML Engineer & Developer | Founder @ ZeroCodeStudios
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=22&pause=1000&color=58A6FF&width=600&lines=AI%2FML+Engineer+%26+Developer;Founder+%40+ZeroCodeStudios;B.E.+Computer+Science+(AI+%26+ML)" alt="Typing SVG" /></a>
 
-I am a 3rd-year B.E. Computer Science student specializing in Artificial Intelligence and Machine Learning. I am deeply passionate about building intelligent, autonomous systems and exploring the frontiers of Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and agentic AI architectures.
+I am a developer and AI/ML specialist passionate about building autonomous systems, agentic architectures, and solving complex problems through data-driven engineering.
 
----
+### ⚡ Technical Arsenal
 
-### 🔭 What I'm currently working on
-
-*   🏢 **ZeroCodeStudios:** Building an agentic AI startup focused on automating code generation and streamlining developer workflows.
-*   🗣️ **Accessibility AI:** Developing an AI/ML-driven speech training platform designed to assist individuals who stutter.
-*   🛰️ **Smart Infrastructure:** Designing a road hazard detection system that leverages satellite imagery and crowdsourced data for public safety.
-
-### 🎓 Education
-
-*   **Bachelor of Engineering in Computer Science** 
-    *   *Specialization:* Artificial Intelligence & Machine Learning (3rd Year)
-
----
-
-### 💻 Tech Stack & Skills
-
-**Languages & Core Tech:**
+**Languages & Frameworks**
 <br>
-<img src="https://skillicons.dev/icons?i=python,js,ts,html,css" />
+<img src="https://skillicons.dev/icons?i=python,java,html,css,js,react" />
 
-**AI, Databases & Backend:**
+**Databases & Backend**
 <br>
-<img src="https://skillicons.dev/icons?i=nodejs,express,mongodb" />
+<img src="https://skillicons.dev/icons?i=nodejs,mongodb" />
 
-**Tools, Cloud & Deployment:**
+**Tools & Infrastructure**
 <br>
-<img src="https://skillicons.dev/icons?i=git,github,vscode,vercel" />
-
-*(Note: My specialized work also heavily involves LangChain, Vector Databases, and custom Agentic Workflows)*
+<img src="https://skillicons.dev/icons?i=git,github,vscode" />
 
 ---
 
-### 📈 GitHub Stats
+### 🔭 Current Endeavors
 
-<div align="left">
-  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=transparent&hide_border=true&title_color=58A6FF&text_color=C9D1D9&icon_color=58A6FF" height="150" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=compact&theme=transparent&hide_border=true&title_color=58A6FF&text_color=C9D1D9" height="150" alt="Top Languages" />
-</div>
+| Project / Role | Description |
+| :--- | :--- |
+| 🏢 **ZeroCodeStudios** | Founder. Building an agentic AI startup focused on automating code generation and optimizing developer workflows. |
+| 🗣️ **Accessibility AI** | Developing an AI/ML-driven speech training platform designed to assist individuals who stutter. |
+| 🛰️ **Smart Infrastructure** | Designing a road hazard detection system leveraging satellite imagery and crowdsourced data for public safety. |
 
 ---
 
-### 📫 Let's Connect!
+### 📊 GitHub Analytics
 
 <p align="left">
-<a href="YOUR_LINKEDIN_URL" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="LinkedIn" height="30" width="40" /></a>
-<a href="YOUR_PORTFOLIO_URL" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/dribbble.svg" alt="Portfolio" height="30" width="40" /></a>
+  <img src="https://github-readme-stats.vercel.app/api?username=YOUR_GITHUB_USERNAME&show_icons=true&theme=radical&hide_border=true" height="165" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=YOUR_GITHUB_USERNAME&layout=donut&theme=radical&hide_border=true" height="165" alt="Top Languages" />
+</p>
+
+---
+
+### 📫 Connect With Me
+
+<p align="left">
+  <a href="mailto:YOUR_EMAIL@example.com">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>
+  <a href="YOUR_LINKEDIN_URL">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a href="YOUR_PORTFOLIO_URL">
+    <img src="https://img.shields.io/badge/Portfolio-25292E?style=for-the-badge&logo=codesandbox&logoColor=white" alt="Portfolio" />
+  </a>
 </p>
