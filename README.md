@@ -1,293 +1,108 @@
-import os
-import requests
-from datetime import date, timedelta
-from pathlib import Path
+<h1 align="left">
+  Hi there, I'm Muthukumaran Suresh
+  <img src="https://media.giphy.com/media/hvRJLFzcasr14yMyj/giphy.gif" width="28">
+</h1>
 
-USERNAME = "DonLee20"
+<a href="https://git.io/typing-svg">
+  <img
+    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=22&pause=1000&color=58A6FF&width=600&lines=AI%2FML+Engineer+%26+Developer;CEO+%26+Founder+%40+RymeGateway;B.E.+Computer+Science+(AI+%26+ML)"
+    alt="Typing SVG"
+  />
+</a>
 
-YEAR = 2026
+I am a developer and AI/ML specialist passionate about building autonomous systems, agentic architectures, and solving complex problems through data-driven engineering.
 
-TOKEN = os.environ["GITHUB_TOKEN"]
+---
 
-GRAPHQL_URL = "https://api.github.com/graphql"
+### ⚡ Technical Arsenal
 
-HEADERS = {
-    "Authorization": f"Bearer {TOKEN}",
-    "Content-Type": "application/json",
-}
+**Languages & Frameworks**
 
-START = f"{YEAR}-01-01T00:00:00Z"
-END = f"{YEAR}-12-31T23:59:59Z"
+<br>
 
-QUERY = """
-query($login: String!, $from: DateTime!, $to: DateTime!) {
-  user(login: $login) {
-    contributionsCollection(
-      from: $from
-      to: $to
-    ) {
-      contributionCalendar {
-        totalContributions
-        weeks {
-          contributionDays {
-            date
-            contributionCount
-            weekday
-          }
-        }
-      }
-    }
-  }
-}
-"""
+<img src="https://skillicons.dev/icons?i=python,java,html,css,js,react" />
 
-response = requests.post(
-    GRAPHQL_URL,
-    headers=HEADERS,
-    json={
-        "query": QUERY,
-        "variables": {
-            "login": USERNAME,
-            "from": START,
-            "to": END,
-        },
-    },
-)
+**Databases & Backend**
 
-response.raise_for_status()
+<br>
 
-data = response.json()
+<img src="https://skillicons.dev/icons?i=nodejs,mongodb,postgres" />
 
-if "errors" in data:
-    raise RuntimeError(data["errors"])
+**Tools & Infrastructure**
 
-calendar = (
-    data["data"]["user"]
-    ["contributionsCollection"]
-    ["contributionCalendar"]
-)
+<br>
 
-weeks = calendar["weeks"]
+<img src="https://skillicons.dev/icons?i=git,github,vscode,docker" />
 
-total = calendar["totalContributions"]
+---
 
-# ---------------------------------------------------------
-# SVG SETTINGS
-# ---------------------------------------------------------
+### 🔭 Current Endeavors
 
-CELL = 13
-GAP = 3
-STEP = CELL + GAP
+| Project / Role | Description |
+| :--- | :--- |
+| 🚀 **RymeGateway** | **CEO & Founder.** Building production-grade AI infrastructure for routing LLM traffic across multiple providers with intelligent routing, authentication, billing, usage analytics, and developer-focused AI tooling. |
+| 🗣️ **Accessibility AI** | Developing an AI/ML-driven speech training platform designed to assist individuals who stutter. |
+| 🛰️ **Smart Infrastructure** | Designing a road hazard detection system leveraging satellite imagery and crowdsourced data for public safety. |
 
-LEFT = 45
-TOP = 55
+---
 
-WIDTH = LEFT + (len(weeks) * STEP) + 20
-HEIGHT = TOP + (7 * STEP) + 45
+### 📊 GitHub Analytics
 
-# GitHub-like contribution levels
-LEVELS = [
-    "#161b22",
-    "#0e4429",
-    "#006d32",
-    "#26a641",
-    "#39d353",
-]
+<p align="left">
+  <img
+    src="https://github-readme-stats.vercel.app/api?username=DonLee20&show_icons=true&theme=radical&hide_border=true&count_private=true"
+    height="165"
+    alt="GitHub Stats"
+  />
 
-def get_level(count):
-    if count == 0:
-        return 0
+  <img
+    src="https://github-readme-stats.vercel.app/api/top-langs/?username=DonLee20&layout=donut&theme=radical&hide_border=true&count_private=true"
+    height="165"
+    alt="Top Languages"
+  />
+</p>
 
-    if count <= 2:
-        return 1
+---
 
-    if count <= 5:
-        return 2
+### 🔥 2026 GitHub Contribution Calendar
 
-    if count <= 9:
-        return 3
-
-    return 4
-
-
-# ---------------------------------------------------------
-# SVG
-# ---------------------------------------------------------
-
-svg = []
-
-svg.append(
-    f'''<svg xmlns="http://www.w3.org/2000/svg"
+<p align="center">
+  <img
+    src="./assets/contributions.svg"
+    alt="DonLee20 2026 GitHub Contribution Calendar"
     width="100%"
-    viewBox="0 0 {WIDTH} {HEIGHT}"
-    role="img"
-    aria-label="{USERNAME} GitHub contributions for {YEAR}">
-'''
-)
+  />
+</p>
 
-svg.append(
-    f'''
-<rect width="100%" height="100%" fill="#0d1117" rx="10"/>
-'''
-)
+<p align="center">
+  <sub>🟩 Live contribution activity • 2026</sub>
+</p>
 
-svg.append(
-    f'''
-<text
-    x="{LEFT}"
-    y="25"
-    fill="#f0f6fc"
-    font-size="16"
-    font-family="Arial, sans-serif"
-    font-weight="600">
-    {YEAR} Contributions
-</text>
-'''
-)
+---
 
-svg.append(
-    f'''
-<text
-    x="{LEFT}"
-    y="43"
-    fill="#8b949e"
-    font-size="11"
-    font-family="Arial, sans-serif">
-    {total:,} contributions in {YEAR}
-</text>
-'''
-)
+### 📫 Connect With Me
 
-# ---------------------------------------------------------
-# Day labels
-# ---------------------------------------------------------
+<p align="left">
 
-day_names = {
-    1: "Mon",
-    3: "Wed",
-    5: "Fri",
-}
+  <a href="mailto:muthumk.suresh20@gmail.com">
+    <img
+      src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"
+      alt="Email"
+    />
+  </a>
 
-for weekday, label in day_names.items():
+  <a href="https://www.linkedin.com/in/muthukumaran-suresh-3241a4418/">
+    <img
+      src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
+      alt="LinkedIn"
+    />
+  </a>
 
-    y = TOP + (weekday * STEP) + 10
+  <a href="https://mkhere.me">
+    <img
+      src="https://img.shields.io/badge/Portfolio-25292E?style=for-the-badge&logo=codesandbox&logoColor=white"
+      alt="Portfolio"
+    />
+  </a>
 
-    svg.append(
-        f'''
-<text
-    x="5"
-    y="{y}"
-    fill="#8b949e"
-    font-size="10"
-    font-family="Arial, sans-serif">
-    {label}
-</text>
-'''
-    )
-
-
-# ---------------------------------------------------------
-# Contribution cells
-# ---------------------------------------------------------
-
-for week_index, week in enumerate(weeks):
-
-    x = LEFT + week_index * STEP
-
-    for day in week["contributionDays"]:
-
-        weekday = day["weekday"]
-
-        y = TOP + weekday * STEP
-
-        count = day["contributionCount"]
-
-        level = get_level(count)
-
-        color = LEVELS[level]
-
-        tooltip = f'{day["date"]}: {count} contributions'
-
-        svg.append(
-            f'''
-<rect
-    x="{x}"
-    y="{y}"
-    width="{CELL}"
-    height="{CELL}"
-    rx="2"
-    fill="{color}">
-    <title>{tooltip}</title>
-</rect>
-'''
-        )
-
-
-# ---------------------------------------------------------
-# Legend
-# ---------------------------------------------------------
-
-legend_y = HEIGHT - 25
-
-svg.append(
-    f'''
-<text
-    x="{LEFT}"
-    y="{legend_y + 10}"
-    fill="#8b949e"
-    font-size="10"
-    font-family="Arial, sans-serif">
-    Less
-</text>
-'''
-)
-
-legend_start = LEFT + 35
-
-for i, color in enumerate(LEVELS):
-
-    x = legend_start + i * STEP
-
-    svg.append(
-        f'''
-<rect
-    x="{x}"
-    y="{legend_y}"
-    width="{CELL}"
-    height="{CELL}"
-    rx="2"
-    fill="{color}"/>
-'''
-    )
-
-svg.append(
-    f'''
-<text
-    x="{legend_start + (len(LEVELS) * STEP) + 5}"
-    y="{legend_y + 10}"
-    fill="#8b949e"
-    font-size="10"
-    font-family="Arial, sans-serif">
-    More
-</text>
-'''
-)
-
-svg.append("</svg>")
-
-# ---------------------------------------------------------
-# Write file
-# ---------------------------------------------------------
-
-output = Path("assets/contributions.svg")
-
-output.parent.mkdir(parents=True, exist_ok=True)
-
-output.write_text(
-    "\n".join(svg),
-    encoding="utf-8"
-)
-
-print(
-    f"Generated {output} with {total:,} contributions for {YEAR}."
-)
+</p>
