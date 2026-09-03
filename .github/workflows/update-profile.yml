@@ -1,0 +1,658 @@
+name: Update GitHub Profile
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 */6 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-profile:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------------
+      # 1. Checkout repository
+      # ---------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------------------------------------
+      # 2. Setup Python
+      # ---------------------------------------
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # ---------------------------------------
+      # 3. Install dependencies
+      # ---------------------------------------
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      # ---------------------------------------
+      # 4. Generate GitHub profile SVGs
+      # ---------------------------------------
+      - name: Generate profile cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python <<'PY'
+          import os
+          import requests
+          from pathlib import Path
+
+          USERNAME = "DonLee20"
+          YEAR = 2026
+
+          TOKEN = os.environ["GITHUB_TOKEN"]
+
+          API = "https://api.github.com/graphql"
+
+          HEADERS = {
+              "Authorization": f"Bearer {TOKEN}",
+              "Content-Type": "application/json"
+          }
+
+          # =========================================================
+          # GITHUB GRAPHQL QUERY
+          # =========================================================
+
+          QUERY = """
+          query($login: String!, $from: DateTime!, $to: DateTime!) {
+            user(login: $login) {
+
+              followers {
+                totalCount
+              }
+
+              repositories(
+                first: 100
+                ownerAffiliations: OWNER
+                privacy: PUBLIC
+              ) {
+                totalCount
+                nodes {
+                  name
+                  stargazerCount
+                  forkCount
+                  primaryLanguage {
+                    name
+                    color
+                  }
+                }
+              }
+
+              contributionsCollection(
+                from: $from
+                to: $to
+              ) {
+                totalCommitContributions
+                totalPullRequestContributions
+                totalIssueContributions
+                totalRepositoryContributions
+
+                contributionCalendar {
+                  totalContributions
+
+                  weeks {
+                    contributionDays {
+                      date
+                      contributionCount
+                      weekday
+                    }
+                  }
+                }
+              }
+            }
+          }
+          """
+
+          START = f"{YEAR}-01-01T00:00:00Z"
+          END = f"{YEAR}-12-31T23:59:59Z"
+
+          response = requests.post(
+              API,
+              headers=HEADERS,
+              json={
+                  "query": QUERY,
+                  "variables": {
+                      "login": USERNAME,
+                      "from": START,
+                      "to": END
+                  }
+              },
+              timeout=30
+          )
+
+          response.raise_for_status()
+
+          result = response.json()
+
+          if "errors" in result:
+              raise RuntimeError(result["errors"])
+
+          user = result["data"]["user"]
+
+          repos = user["repositories"]["nodes"]
+
+          contributions = (
+              user["contributionsCollection"]
+          )
+
+          calendar = (
+              contributions["contributionCalendar"]
+          )
+
+          total_contributions = calendar["totalContributions"]
+
+          # =========================================================
+          # ASSETS DIRECTORY
+          # =========================================================
+
+          assets = Path("assets")
+          assets.mkdir(exist_ok=True)
+
+          # =========================================================
+          # 1. GITHUB STATS SVG
+          # =========================================================
+
+          repo_count = user["repositories"]["totalCount"]
+          followers = user["followers"]["totalCount"]
+
+          stars = sum(
+              repo["stargazerCount"]
+              for repo in repos
+          )
+
+          forks = sum(
+              repo["forkCount"]
+              for repo in repos
+          )
+
+          commits = contributions[
+              "totalCommitContributions"
+          ]
+
+          pull_requests = contributions[
+              "totalPullRequestContributions"
+          ]
+
+          issues = contributions[
+              "totalIssueContributions"
+          ]
+
+          width = 495
+          height = 190
+
+          stats_svg = f'''<svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="{width}"
+          height="{height}"
+          viewBox="0 0 {width} {height}">
+
+          <rect
+            width="100%"
+            height="100%"
+            rx="10"
+            fill="#0d1117"
+            stroke="#30363d"/>
+
+          <text
+            x="25"
+            y="35"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="20"
+            font-weight="bold">
+            GitHub Stats
+          </text>
+
+          <text
+            x="25"
+            y="70"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Repositories
+          </text>
+
+          <text
+            x="25"
+            y="92"
+            fill="#58a6ff"
+            font-family="Arial"
+            font-size="20"
+            font-weight="bold">
+            {repo_count}
+          </text>
+
+          <text
+            x="170"
+            y="70"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Contributions {YEAR}
+          </text>
+
+          <text
+            x="170"
+            y="92"
+            fill="#58a6ff"
+            font-family="Arial"
+            font-size="20"
+            font-weight="bold">
+            {total_contributions}
+          </text>
+
+          <text
+            x="350"
+            y="70"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Followers
+          </text>
+
+          <text
+            x="350"
+            y="92"
+            fill="#58a6ff"
+            font-family="Arial"
+            font-size="20"
+            font-weight="bold">
+            {followers}
+          </text>
+
+          <text
+            x="25"
+            y="130"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Commits
+          </text>
+
+          <text
+            x="25"
+            y="152"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="16"
+            font-weight="bold">
+            {commits}
+          </text>
+
+          <text
+            x="170"
+            y="130"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Pull Requests
+          </text>
+
+          <text
+            x="170"
+            y="152"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="16"
+            font-weight="bold">
+            {pull_requests}
+          </text>
+
+          <text
+            x="350"
+            y="130"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="13">
+            Issues
+          </text>
+
+          <text
+            x="350"
+            y="152"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="16"
+            font-weight="bold">
+            {issues}
+          </text>
+
+          </svg>
+          '''
+
+          (assets / "github-stats.svg").write_text(
+              stats_svg,
+              encoding="utf-8"
+          )
+
+          # =========================================================
+          # 2. TOP LANGUAGES SVG
+          # =========================================================
+
+          language_count = {}
+
+          for repo in repos:
+
+              language = repo["primaryLanguage"]
+
+              if language:
+                  name = language["name"]
+
+                  language_count[name] = (
+                      language_count.get(name, 0) + 1
+                  )
+
+          sorted_languages = sorted(
+              language_count.items(),
+              key=lambda x: x[1],
+              reverse=True
+          )
+
+          top_languages = sorted_languages[:6]
+
+          total_languages = sum(
+              count for _, count in top_languages
+          )
+
+          lang_width = 495
+          lang_height = 220
+
+          lang_svg = f'''<svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="{lang_width}"
+          height="{lang_height}"
+          viewBox="0 0 {lang_width} {lang_height}">
+
+          <rect
+            width="100%"
+            height="100%"
+            rx="10"
+            fill="#0d1117"
+            stroke="#30363d"/>
+
+          <text
+            x="25"
+            y="35"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="20"
+            font-weight="bold">
+            Top Languages
+          </text>
+          '''
+
+          y = 70
+
+          for name, count in top_languages:
+
+              percentage = (
+                  count / total_languages * 100
+                  if total_languages
+                  else 0
+              )
+
+              bar_width = percentage * 3.4
+
+              lang_svg += f'''
+              <text
+                x="25"
+                y="{y}"
+                fill="#c9d1d9"
+                font-family="Arial"
+                font-size="12">
+                {name}
+              </text>
+
+              <rect
+                x="130"
+                y="{y - 11}"
+                width="300"
+                height="10"
+                rx="5"
+                fill="#21262d"/>
+
+              <rect
+                x="130"
+                y="{y - 11}"
+                width="{bar_width:.1f}"
+                height="10"
+                rx="5"
+                fill="#58a6ff"/>
+
+              <text
+                x="440"
+                y="{y}"
+                fill="#8b949e"
+                font-family="Arial"
+                font-size="11">
+                {percentage:.1f}%
+              </text>
+              '''
+
+              y += 25
+
+          lang_svg += "</svg>"
+
+          (assets / "top-languages.svg").write_text(
+              lang_svg,
+              encoding="utf-8"
+          )
+
+          # =========================================================
+          # 3. 2026 CONTRIBUTION GRAPH
+          # =========================================================
+
+          CELL = 12
+          GAP = 3
+          STEP = CELL + GAP
+
+          LEFT = 45
+          TOP = 55
+
+          weeks = calendar["weeks"]
+
+          graph_width = LEFT + (
+              len(weeks) * STEP
+          ) + 25
+
+          graph_height = TOP + (
+              7 * STEP
+          ) + 45
+
+          COLORS = [
+              "#161b22",
+              "#0e4429",
+              "#006d32",
+              "#26a641",
+              "#39d353"
+          ]
+
+          def level(count):
+
+              if count == 0:
+                  return 0
+
+              if count <= 2:
+                  return 1
+
+              if count <= 5:
+                  return 2
+
+              if count <= 9:
+                  return 3
+
+              return 4
+
+          graph_svg = f'''<svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          viewBox="0 0 {graph_width} {graph_height}">
+
+          <rect
+            width="100%"
+            height="100%"
+            rx="10"
+            fill="#0d1117"
+            stroke="#30363d"/>
+
+          <text
+            x="{LEFT}"
+            y="25"
+            fill="#f0f6fc"
+            font-family="Arial"
+            font-size="16"
+            font-weight="bold">
+            {YEAR} Contributions
+          </text>
+
+          <text
+            x="{LEFT}"
+            y="43"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="11">
+            {total_contributions:,} contributions
+          </text>
+          '''
+
+          # Day labels
+
+          for weekday, label in {
+              1: "Mon",
+              3: "Wed",
+              5: "Fri"
+          }.items():
+
+              y = TOP + weekday * STEP + 10
+
+              graph_svg += f'''
+              <text
+                x="5"
+                y="{y}"
+                fill="#8b949e"
+                font-family="Arial"
+                font-size="10">
+                {label}
+              </text>
+              '''
+
+          # Cells
+
+          for week_index, week in enumerate(weeks):
+
+              x = LEFT + week_index * STEP
+
+              for day in week["contributionDays"]:
+
+                  weekday = day["weekday"]
+
+                  count = day["contributionCount"]
+
+                  y = TOP + weekday * STEP
+
+                  color = COLORS[level(count)]
+
+                  graph_svg += f'''
+                  <rect
+                    x="{x}"
+                    y="{y}"
+                    width="{CELL}"
+                    height="{CELL}"
+                    rx="2"
+                    fill="{color}">
+                    <title>
+                      {day["date"]}: {count} contributions
+                    </title>
+                  </rect>
+                  '''
+
+          # Legend
+
+          legend_y = graph_height - 25
+
+          graph_svg += f'''
+          <text
+            x="{LEFT}"
+            y="{legend_y + 10}"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="10">
+            Less
+          </text>
+          '''
+
+          for i, color in enumerate(COLORS):
+
+              x = LEFT + 35 + i * STEP
+
+              graph_svg += f'''
+              <rect
+                x="{x}"
+                y="{legend_y}"
+                width="{CELL}"
+                height="{CELL}"
+                rx="2"
+                fill="{color}"/>
+              '''
+
+          graph_svg += f'''
+          <text
+            x="{LEFT + 35 + len(COLORS) * STEP + 5}"
+            y="{legend_y + 10}"
+            fill="#8b949e"
+            font-family="Arial"
+            font-size="10">
+            More
+          </text>
+
+          </svg>
+          '''
+
+          (assets / "contributions.svg").write_text(
+              graph_svg,
+              encoding="utf-8"
+          )
+
+          print("====================================")
+          print("GitHub profile successfully updated")
+          print("====================================")
+          print(f"User: {USERNAME}")
+          print(f"Year: {YEAR}")
+          print(f"Contributions: {total_contributions}")
+          print(f"Commits: {commits}")
+          print(f"Repositories: {repo_count}")
+          print("SVG files generated:")
+          print(" - github-stats.svg")
+          print(" - top-languages.svg")
+          print(" - contributions.svg")
+          PY
+
+      # ---------------------------------------
+      # 5. Commit generated SVG files
+      # ---------------------------------------
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add assets/github-stats.svg
+          git add assets/top-languages.svg
+          git add assets/contributions.svg
+
+          if git diff --cached --quiet; then
+            echo "No changes detected."
+          else
+            git commit -m "chore: update GitHub profile stats"
+            git push
+          fi
