@@ -5,38 +5,43 @@
 
 <a href="https://git.io/typing-svg">
   <img
-    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=22&pause=1000&color=58A6FF&width=600&lines=AI%2FML+Engineer+%26+Developer;CEO+%26+Founder+%40+RymeGateway;B.E.+Computer+Science+(AI+%26+ML)"
+    src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=22&pause=1000&color=58A6FF&width=650&lines=AI%2FML+Engineer+%26+Developer;CEO+%26+Founder+%40+RymeGateway;B.E.+Computer+Science+(AI+%26+ML);Building+Intelligent+%26+Autonomous+Systems"
     alt="Typing SVG"
   />
 </a>
+
+<p>
+  <img src="https://komarev.com/ghpvc/?username=DonLee20&label=Profile%20Views&color=58A6FF&style=flat" />
+  <img src="https://img.shields.io/github/followers/DonLee20?label=Followers&style=flat&color=58A6FF" />
+</p>
 
 I am a developer and AI/ML specialist passionate about building autonomous systems, agentic architectures, and solving complex problems through data-driven engineering.
 
 ---
 
-### ⚡ Technical Arsenal
+## ⚡ Technical Arsenal
 
-**Languages & Frameworks**
+### Languages & Frameworks
 
-<br>
+<p>
+  <img src="https://skillicons.dev/icons?i=python,java,html,css,js,react" />
+</p>
 
-<img src="https://skillicons.dev/icons?i=python,java,html,css,js,react" />
+### Databases & Backend
 
-**Databases & Backend**
+<p>
+  <img src="https://skillicons.dev/icons?i=nodejs,mongodb,postgres" />
+</p>
 
-<br>
+### Tools & Infrastructure
 
-<img src="https://skillicons.dev/icons?i=nodejs,mongodb,postgres" />
-
-**Tools & Infrastructure**
-
-<br>
-
-<img src="https://skillicons.dev/icons?i=git,github,vscode,docker" />
+<p>
+  <img src="https://skillicons.dev/icons?i=git,github,vscode,docker" />
+</p>
 
 ---
 
-### 🔭 Current Endeavors
+## 🔭 Current Endeavors
 
 | Project / Role | Description |
 | :--- | :--- |
@@ -46,63 +51,17 @@ I am a developer and AI/ML specialist passionate about building autonomous syste
 
 ---
 
-### 📊 GitHub Analytics
+## 🧠 What I'm Interested In
 
-<p align="left">
-  <img
-    src="https://github-readme-stats.vercel.app/api?username=DonLee20&show_icons=true&theme=radical&hide_border=true&count_private=true"
-    height="165"
-    alt="GitHub Stats"
-  />
-
-  <img
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=DonLee20&layout=donut&theme=radical&hide_border=true&count_private=true"
-    height="165"
-    alt="Top Languages"
-  />
-</p>
-
----
-
-### 🔥 2026 GitHub Contribution Calendar
-
-<p align="center">
-  <img
-    src="./assets/contributions.svg"
-    alt="DonLee20 2026 GitHub Contribution Calendar"
-    width="100%"
-  />
-</p>
-
-<p align="center">
-  <sub>🟩 Live contribution activity • 2026</sub>
-</p>
-
----
-
-### 📫 Connect With Me
-
-<p align="left">
-
-  <a href="mailto:muthumk.suresh20@gmail.com">
-    <img
-      src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"
-      alt="Email"
-    />
-  </a>
-
-  <a href="https://www.linkedin.com/in/muthukumaran-suresh-3241a4418/">
-    <img
-      src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
-      alt="LinkedIn"
-    />
-  </a>
-
-  <a href="https://mkhere.me">
-    <img
-      src="https://img.shields.io/badge/Portfolio-25292E?style=for-the-badge&logo=codesandbox&logoColor=white"
-      alt="Portfolio"
-    />
-  </a>
-
-</p>
+```text
+Artificial Intelligence
+Machine Learning
+Generative AI
+LLM Applications
+AI Agents
+Agentic Architectures
+Computer Vision
+Natural Language Processing
+Autonomous Systems
+Developer Tools
+Cloud Infrastructure
